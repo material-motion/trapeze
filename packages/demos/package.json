@@ -1,0 +1,68 @@
+{
+  "private": true,
+  "name": "trapeze-demos",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "yarn run -TB concurrently \"yarn run build:tsc --watch\" \"rollup --config ./rollup.config.js --watch\" \"dhost site --bind-all\"",
+    "build": "yarn run -TB wireit",
+    "build:tsc": "yarn run -TB wireit",
+    "build:bundle": "yarn run -TB wireit"
+  },
+  "wireit": {
+    "build": {
+      "dependencies": [
+        "build:tsc",
+        "build:bundle"
+      ]
+    },
+    "build:tsc": {
+      "command": "tsc --build --pretty",
+      "clean": "if-file-deleted",
+      "files": [
+        "src/**/*.{ts,tsx}",
+        "tsconfig.json",
+        "../../tsconfig.common.json"
+      ],
+      "output": [
+        "dist/**",
+        ".tsbuildinfo"
+      ],
+      "packageLocks": [
+        "yarn.lock"
+      ],
+      "dependencies": [
+        "../core:build"
+      ]
+    },
+    "build:bundle": {
+      "command": "rollup --config ./rollup.config.js",
+      "clean": true,
+      "files": [
+        "dist/**/*.js",
+        "rollup.config.js"
+      ],
+      "output": [
+        "site/mount.js",
+        ".tsbuildinfo"
+      ],
+      "packageLocks": [
+        "yarn.lock"
+      ],
+      "dependencies": [
+        "build:tsc"
+      ]
+    }
+  },
+  "dependencies": {
+    "jsxstyle": "2.5.1",
+    "preact": "10.7.2",
+    "trapeze": "workspace:*",
+    "tslib": "^2.4.0"
+  },
+  "author": "The Trapeze Authors (see AUTHORS)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/material-foundation/trapeze/issues"
+  },
+  "homepage": "https://github.com/material-foundation/trapeze"
+}

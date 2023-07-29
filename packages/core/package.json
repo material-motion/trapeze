@@ -1,0 +1,46 @@
+{
+  "name": "trapeze",
+  "version": "1.2.0",
+  "description": "A Preact library for paginated experiences, like slide decks and surveys.",
+  "module": "./dist/preact.js",
+  "types": "./dist/preact.d.ts",
+  "scripts": {
+    "build": "yarn run -TB wireit",
+    "publish": "yarn run -TB wireit"
+  },
+  "wireit": {
+    "build": {
+      "command": "tsc --build --pretty",
+      "clean": "if-file-deleted",
+      "files": [
+        "src/**/*.{ts,tsx}",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist/**",
+        ".tsbuildinfo"
+      ],
+      "packageLocks": [
+        "yarn.lock"
+      ]
+    },
+    "publish": {
+      "command": "yarn npm publish",
+      "dependencies": [
+        "build"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "preact": "^10"
+  },
+  "dependencies": {
+    "tslib": "^2.4.0"
+  },
+  "author": "The Trapeze Authors (see AUTHORS)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/material-foundation/trapeze/issues"
+  },
+  "homepage": "https://github.com/material-foundation/trapeze"
+}
