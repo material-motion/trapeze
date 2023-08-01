@@ -184,46 +184,11 @@ function updateHistoryIndex(increment = 0) {
   }
 }
 
-// Trapeze was originally created in service of a deck for a talk I was giving,
-// where I encountered the stack ordering bug commented above.  Since I had
-// full control of how Trapeze was being used, it was simpler to work around
-// the bug than it was to try to fix it.
-//
-// Since that time, I've ended up using Trapeze quite a lot.  The fragility of
-// stack ordering was the reason I didn't open source it originally, and I
-// encountered that issue in nearly every project - nested uses are common!
-//
-// `replaceStackWithDirtyHack` and `AutoSkippedFragment` were the workarounds I
-// used before I finally tackled the `stack` ordering problem.
-//
-// Now that the queue is in there, I'm deprecating these.  They're likely to be
-// removed in the future, if `queue` makes `stack` ordering a concern of the
-// past.
-let movingForwards = true;
-
-export function AutoSkippedFragment() {
-  useEffect(
-    () => {
-      if (movingForwards) {
-        requestAnimationFrame(next);
-      }
-    },
-    []
-  );
-  return <Fragment />;
-}
-
-export function replaceStackWithDirtyHack(hack: (stack: Array<Entry>) => Array<Entry>) {
-  stack = hack(stack);
-}
-
-
 export function next() {
-  movingForwards = true;
-
   moveQueueToStack();
 
   const entry = stack[0];
+
   const {
     index,
     length,
@@ -244,11 +209,10 @@ export function next() {
 }
 
 export function previous() {
-  movingForwards = false;
-
   moveQueueToStack();
 
   const entry = stack[0];
+
   const {
     index,
     length,
