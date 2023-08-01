@@ -24,17 +24,17 @@ import {
 
 import {
   useEffect,
-  useRef,
-  useState,
 } from 'preact/hooks';
 
-export type SetIndex = (index: number) => void;
+import {
+  Signal,
+  useSignal,
+} from '@preact/signals';
 
-export type Entry = {
+export type Entry = Signal<{
   index: number,
   length: number,
-  setIndex: SetIndex,
-}
+}>;
 
 
 // TypeScript gets mad if a component returns a primitive (string, number, list)
@@ -77,25 +77,27 @@ export function Build({ children }: { children: ComponentChildren }): VNode<unkn
 
 
 export function useTrapeze(length: number) {
-  const [index, setIndex] = useState(0);
+  const entry = useSignal({
+    index: 0,
+    length,
+  });
 
   // Keep length current, e.g. if Spotlight gets more children
-  const entryRef = useRef<Entry | undefined>();
-  if (entryRef.current) {
-    entryRef.current.length = length;
+  if (length !== entry.value.length) {
+    entry.value = {
+      ...entry.value,
+      length,
+    }
   }
 
   useEffect(
     () => {
-      entryRef.current = addToStack({
-        setIndex,
-        length,
-      });
+      addToStack(entry);
     },
     []
   );
 
-  return index;
+  return entry.value.index;
 }
 
 // In React/Preact, the `useEffect` calls in children are run before those in
@@ -131,19 +133,9 @@ function moveQueueToStack() {
   }
 }
 
-function addToStack({ setIndex, length }: { setIndex: SetIndex, length: number }) {
-  const entry = {
-    index: 0,
-    length,
-    setIndex
-  };
-
+function addToStack(entry: Entry) {
   queue.unshift(entry);
   requestAnimationFrame(moveQueueToStack);
-
-  // allows for length to be amended later, e.g. if the number of children in
-  // Spotlight changes
-  return entry;
 }
 
 export function attachTrapezeToArrowKeys() {
@@ -232,10 +224,16 @@ export function next() {
   moveQueueToStack();
 
   const entry = stack[0];
+  const {
+    index,
+    length,
+  } = entry.value;
 
-  if (entry.index < entry.length - 1) {
-    entry.index += 1;
-    entry.setIndex(entry.index);
+  if (index < length - 1) {
+    entry.value = {
+      index: index + 1,
+      length
+    };
 
   } else if (stack.length > 1) {
     stack.shift();
@@ -251,10 +249,16 @@ export function previous() {
   moveQueueToStack();
 
   const entry = stack[0];
+  const {
+    index,
+    length,
+  } = entry.value;
 
-  if (entry.index > 0) {
-    entry.index -= 1;
-    entry.setIndex(entry.index);
+  if (index > 0) {
+    entry.value = {
+      index: index - 1,
+      length
+    };
 
   } else if (stack.length > 1) {
     stack.shift();
@@ -264,14 +268,3 @@ export function previous() {
   updateHistoryIndex(-1);
 }
 
-export function getCurrentEntry() {
-  const {
-    index,
-    length,
-  } = stack[0] || {};
-
-  return {
-    index,
-    length,
-  };
-}

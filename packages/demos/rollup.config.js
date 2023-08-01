@@ -45,8 +45,8 @@ export default {
     }),
     resolve({
       // preact@10 is failing `modulesOnly: true`.  TODO: find out why.
-      resolveOnly: ['preact'],
-      dedupe: ['preact'],
+      resolveOnly: ['preact', '@preact/signals', '@preact/signals-core'],
+      dedupe: ['preact', '@preact/signals', '@preact/signals-core'],
       mainFields: ['module'],
     }),
     replace({

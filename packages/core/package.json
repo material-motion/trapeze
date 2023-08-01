@@ -35,6 +35,7 @@
     "preact": "^10"
   },
   "dependencies": {
+    "@preact/signals": "^1.1.5",
     "tslib": "^2.4.0"
   },
   "author": "The Trapeze Authors (see AUTHORS)",
