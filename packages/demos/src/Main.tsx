@@ -33,6 +33,8 @@ import {
   Spotlight,
   attachTrapezeToArrowKeys,
   attachTrapezeToHistory,
+  canPrevious,
+  canNext,
   useTrapeze,
 } from 'trapeze';
 
@@ -129,7 +131,10 @@ export function Main() {
         bottom = { 0 }
         width = '100vw'
       >
-        <PrevNextBar />
+        <PrevNextBar
+          nextIsEnabled = { canNext }
+          prevIsEnabled = { canPrevious }
+        />
       </Block>
     </Col>
   )

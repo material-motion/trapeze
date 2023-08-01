@@ -20,6 +20,10 @@ import {
 } from 'preact';
 
 import {
+  Signal,
+} from '@preact/signals';
+
+import {
   Block,
   JsxstyleProps,
   Row,
@@ -31,8 +35,8 @@ import {
 } from 'trapeze';
 
 type PrevNextBarProps = {
-  prevIsEnabled?: boolean,
-  nextIsEnabled?: boolean,
+  prevIsEnabled?: boolean | Signal<boolean>,
+  nextIsEnabled?: boolean | Signal<boolean>,
   nextIsEmphasized?: boolean,
   onNextClick?: () => void,
 };
@@ -106,7 +110,7 @@ export const NavButton = ({
   enabled = true,
   ...props
 }: {
-  enabled?: boolean,
+  enabled?: boolean | Signal<boolean>,
   onClick?: () => void,
 } & JsxstyleProps<{}>) => (
   <Row
@@ -126,7 +130,7 @@ export const NavButton = ({
     props = {
       {
         onClick() {
-          if (enabled && onClick) {
+          if (((enabled as Signal<boolean>).value ?? enabled as boolean) && onClick) {
             onClick();
           }
         }

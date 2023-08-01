@@ -28,6 +28,7 @@ import {
 
 import {
   Signal,
+  computed,
   signal,
   useSignal,
 } from '@preact/signals';
@@ -241,3 +242,38 @@ export function previous() {
 
   updateHistoryIndex(-1);
 }
+
+export const canPrevious = computed(
+  () => {
+    const currentStack = stack.value;
+
+    for (let i = 0; i < currentStack.length; i++) {
+      const {
+        index,
+      } = currentStack[i].value;
+
+      if (index > 0) {
+        return true;
+      }
+    }
+    return false;
+  }
+);
+
+export const canNext = computed(
+  () => {
+    const currentStack = stack.value;
+
+    for (let i = 0; i < currentStack.length; i++) {
+      const {
+        index,
+        length,
+      } = currentStack[i].value;
+
+      if (index < length - 1) {
+        return true;
+      }
+    }
+    return false;
+  }
+);

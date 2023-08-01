@@ -1853,6 +1853,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "trapeze-demos@workspace:packages/demos"
   dependencies:
+    "@preact/signals": ^1.1.5
     jsxstyle: 2.5.1
     preact: 10.7.2
     trapeze: "workspace:*"
