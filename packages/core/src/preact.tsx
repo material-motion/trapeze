@@ -28,6 +28,7 @@ import {
 
 import {
   Signal,
+  signal,
   useSignal,
 } from '@preact/signals';
 
@@ -120,17 +121,18 @@ export function useTrapeze(length: number) {
 // `queue` is merged into `stack` one frame after rendering, as well as if
 // `next` or `previous` is called.  Hopefully this is sufficient.
 
-let stack: Array<Entry> = [];
+const stack: Signal<Array<Entry>> = signal([]);
 let queue: Array<Entry> = [];
 
 function moveQueueToStack() {
   if (queue.length) {
+    const currentStack = stack.value;
     // `queue` puts the newest at the end.  `stack` puts the newest at the
     // beginning.  This works around the inside-out ordering problem without
     // needing to manually reorder anything.
-    stack = [
+    stack.value = [
       ...queue,
-      ...stack,
+      ...currentStack,
     ];
     queue = [];
   }
@@ -193,7 +195,8 @@ function updateHistoryIndex(increment = 0) {
 export function next() {
   moveQueueToStack();
 
-  const entry = stack[0];
+  const currentStack = stack.value;
+  const entry = currentStack[0];
 
   const {
     index,
@@ -206,8 +209,8 @@ export function next() {
       length
     };
 
-  } else if (stack.length > 1) {
-    stack.shift();
+  } else if (currentStack.length > 1) {
+    stack.value = currentStack.slice(1);
     next();
   }
 
@@ -217,7 +220,8 @@ export function next() {
 export function previous() {
   moveQueueToStack();
 
-  const entry = stack[0];
+  const currentStack = stack.value;
+  const entry = currentStack[0];
 
   const {
     index,
@@ -230,11 +234,10 @@ export function previous() {
       length
     };
 
-  } else if (stack.length > 1) {
-    stack.shift();
+  } else if (currentStack.length > 1) {
+    stack.value = currentStack.slice(1);
     previous();
   }
 
   updateHistoryIndex(-1);
 }
-
