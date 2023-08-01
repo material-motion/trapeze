@@ -117,24 +117,30 @@ export function useTrapeze(length: number) {
 // on the same side of the stack, regardless of if there were other
 // `useTrapeze` calls in a frame.
 //
-// The queue is cleared one frame after rendering, as well as if `next` or
-// `previous` is called.  Hopefully this is sufficient.
-//
-// An ideal solution would be able to detect when a `useTrapeze` call has been
-// made in a child component and use the correct end of the stack accordingly,
-// but it's unclear how to know which hooks will be called by your children.
+// `queue` is merged into `stack` one frame after rendering, as well as if
+// `next` or `previous` is called.  Hopefully this is sufficient.
 
 let stack: Array<Entry> = [];
 let queue: Array<Entry> = [];
 
 function moveQueueToStack() {
-  while (queue.length) {
-    stack.unshift(queue.shift()!);
+  if (queue.length) {
+    // `queue` puts the newest at the end.  `stack` puts the newest at the
+    // beginning.  This works around the inside-out ordering problem without
+    // needing to manually reorder anything.
+    stack = [
+      ...queue,
+      ...stack,
+    ];
+    queue = [];
   }
 }
 
 function addToStack(entry: Entry) {
-  queue.unshift(entry);
+  queue = [
+    ...queue,
+    entry,
+  ];
   requestAnimationFrame(moveQueueToStack);
 }
 
