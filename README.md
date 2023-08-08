@@ -155,7 +155,7 @@ Preact.
 **This is not an officially supported Google product.**  While we do use it
 internally, open-source support is provided on a best-effort basis.
 
-Thank you to [Robert Penner](https://github.com/robertpenner) for allowing use
+Thank you to [Robert Penner](https://github.com/robertpenner) for allowing us
 to publish the under the name `trapeze`.
 
 ## License ##
