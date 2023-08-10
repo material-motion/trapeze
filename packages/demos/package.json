@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@preact/signals": "^1.1.5",
-    "jsxstyle": "2.5.1",
+    "jsxstyle": "2.5.2",
     "preact": "10.7.2",
     "trapeze": "workspace:*",
     "tslib": "^2.4.0"

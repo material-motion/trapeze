@@ -1030,12 +1030,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsxstyle@npm:2.5.1":
-  version: 2.5.1
-  resolution: "jsxstyle@npm:2.5.1"
+"jsxstyle@npm:2.5.2":
+  version: 2.5.2
+  resolution: "jsxstyle@npm:2.5.2"
   dependencies:
     jsxstyle-utils: ^2.5.0
-  checksum: 76a4fc618233e034e65865224634af6de36401b5508425430b1ab3840bca484ed4e9f418a060eea373e5ef39f82f8dfcb7f97a01d20e8d4ea0234c93957896e3
+  checksum: c6d8f7883cff55068d138828ad51b121c16a4c91aaa689c4e76f446bd6abd37ca7bd4c28029ebc28b0500cae2cac50cf52dd47504da47426ef6ce2b405537460
   languageName: node
   linkType: hard
 
@@ -1616,7 +1616,7 @@ __metadata:
     rollup-plugin-node-resolve: 5.2.0
     rollup-plugin-replace: 2.2.0
     tslib: 2.1.0
-    typescript: 4.6.4
+    typescript: 5.1.6
     wireit: 0.7.1
   languageName: unknown
   linkType: soft
@@ -1854,7 +1854,7 @@ __metadata:
   resolution: "trapeze-demos@workspace:packages/demos"
   dependencies:
     "@preact/signals": ^1.1.5
-    jsxstyle: 2.5.1
+    jsxstyle: 2.5.2
     preact: 10.7.2
     trapeze: "workspace:*"
     tslib: ^2.4.0
@@ -1902,23 +1902,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.6.4":
-  version: 4.6.4
-  resolution: "typescript@npm:4.6.4"
+"typescript@npm:5.1.6":
+  version: 5.1.6
+  resolution: "typescript@npm:5.1.6"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: e7bfcc39cd4571a63a54e5ea21f16b8445268b9900bf55aee0e02ad981be576acc140eba24f1af5e3c1457767c96cea6d12861768fb386cf3ffb34013718631a
+  checksum: b2f2c35096035fe1f5facd1e38922ccb8558996331405eb00a5111cc948b2e733163cc22fab5db46992aba7dd520fff637f2c1df4996ff0e134e77d3249a7350
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.6.4#~builtin<compat/typescript>":
-  version: 4.6.4
-  resolution: "typescript@patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=7ad353"
+"typescript@patch:typescript@5.1.6#~builtin<compat/typescript>":
+  version: 5.1.6
+  resolution: "typescript@patch:typescript@npm%3A5.1.6#~builtin<compat/typescript>::version=5.1.6&hash=7ad353"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 1cb434fbc637d347be90e3a0c6cd05e33c38f941713c8786d3031faf1842c2c148ba91d2fac01e7276b0ae3249b8633f1660e32686cc7a8c6a8fd5361dc52c66
+  checksum: 21e88b0a0c0226f9cb9fd25b9626fb05b4c0f3fddac521844a13e1f30beb8f14e90bd409a9ac43c812c5946d714d6e0dee12d5d02dfc1c562c5aacfa1f49b606
   languageName: node
   linkType: hard
 
