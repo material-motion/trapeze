@@ -87,7 +87,7 @@ Imagine `<Trunk>` has called `useTrapeze(2)` (for each branch); `<BranchA>` has
 
 `next()` will increment `<BranchA>` for the first 3 calls.  The 4th call will
 increment `<Trunk>`.  If `<Trunk>` presents its children incrementally (like
-`<Spotlight>`, that will cause `<BranchB>` to be mounted.  `<BranchB>` will
+`<Spotlight>`), that will cause `<BranchB>` to be mounted.  `<BranchB>` will
 receive the next 2 `next()` calls.
 
 This example uses tree names to explain the order of incrementation.  In a more
