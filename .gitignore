@@ -1,5 +1,5 @@
 **/dist/*
-**/site/bundles/
+**/site/*
 *.js.map
 *.pyc
 .DS_Store

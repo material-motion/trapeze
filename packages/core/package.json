@@ -2,6 +2,7 @@
   "name": "trapeze",
   "version": "1.2.0",
   "description": "A Preact library for paginated experiences, like slide decks and surveys.",
+  "typescript": "./src/preact.tsx",
   "module": "./dist/preact.js",
   "types": "./dist/preact.d.ts",
   "scripts": {

@@ -3,16 +3,25 @@
   "name": "trapeze-demos",
   "version": "0.0.0",
   "scripts": {
-    "start": "yarn run -TB concurrently \"yarn run build:tsc --watch\" \"rollup --config ./rollup.config.js --watch\" \"dhost site --bind-all\"",
+    "start": "yarn run -TB wireit",
     "build": "yarn run -TB wireit",
     "build:tsc": "yarn run -TB wireit",
-    "build:bundle": "yarn run -TB wireit"
+    "build:gen-html": "yarn run -TB wireit",
+    "build:site": "yarn run -TB wireit"
   },
   "wireit": {
+    "start": {
+      "service": true,
+      "command": "vite serve",
+      "files": [
+        "vite.config.js"
+      ]
+    },
     "build": {
       "dependencies": [
         "build:tsc",
-        "build:bundle"
+        "build:gen-html",
+        "build:site"
       ]
     },
     "build:tsc": {
@@ -24,7 +33,7 @@
         "../../tsconfig.common.json"
       ],
       "output": [
-        "dist/**",
+        "dist/**/*.js",
         ".tsbuildinfo"
       ],
       "packageLocks": [
@@ -34,22 +43,33 @@
         "../core:build"
       ]
     },
-    "build:bundle": {
-      "command": "rollup --config ./rollup.config.js",
-      "clean": true,
+    "build:gen-html": {
+      "command": "sed 's/mount.tsx/mount.js/' src/index.html > dist/index.html",
       "files": [
-        "dist/**/*.js",
-        "rollup.config.js"
+        "src/index.html"
       ],
       "output": [
-        "site/mount.js",
+        "dist/index.html"
+      ]
+    },
+    "build:site": {
+      "command": "vite build",
+      "clean": true,
+      "files": [
+        "dist/**/index.html",
+        "dist/**/*.js",
+        "vite.config.js"
+      ],
+      "output": [
+        "site/**/*",
         ".tsbuildinfo"
       ],
       "packageLocks": [
         "yarn.lock"
       ],
       "dependencies": [
-        "build:tsc"
+        "build:tsc",
+        "build:gen-html"
       ]
     }
   },
