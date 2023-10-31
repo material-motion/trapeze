@@ -29,5 +29,5 @@
     "vite": "^4.5.0",
     "wireit": "0.7.1"
   },
-  "packageManager": "yarn@3.2.1"
+  "packageManager": "yarn@4.0.1"
 }
