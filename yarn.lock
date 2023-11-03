@@ -1539,10 +1539,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact@npm:10.7.2":
-  version: 10.7.2
-  resolution: "preact@npm:10.7.2"
-  checksum: 2a2d0762f4b2b9badd6108e540356eb00519449899c0dfa3862bbd45da00609225c04d5bbd4085e80d6ef93e82c81600a1246820db48bf725f489db469e51c26
+"preact@npm:10.8.2":
+  version: 10.8.2
+  resolution: "preact@npm:10.8.2"
+  checksum: 99102cfbb526c2c8b11999817353ff3070a10987f554e75044aad446bb77e8671fae7ff650e8906654734df11cf948e7580807f019674c86d90474c29753fb36
   languageName: node
   linkType: hard
 
@@ -1916,7 +1916,7 @@ __metadata:
   dependencies:
     "@preact/signals": "npm:^1.1.5"
     jsxstyle: "npm:2.5.2"
-    preact: "npm:10.7.2"
+    preact: "npm:10.8.2"
     trapeze: "workspace:*"
     tslib: "npm:^2.4.0"
   languageName: unknown
